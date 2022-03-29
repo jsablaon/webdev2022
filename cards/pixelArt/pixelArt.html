@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Art Canvas</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+
+<body>
+    <nav>
+        <label for="">Pick a Color: </label>
+        <input type="color" name="" id="colorPicker">
+
+        <label for="">Rows: </label>
+        <input type="number" name="" id="rowCount">
+
+        <label for="">Columns: </label>
+        <input type="number" name="" id="columnCount">
+
+        <button id="generateCanvasButton">Generate the canvas!</button>
+        <button id="generateNewCanvasButton" style="visibility: hidden">Generate NEW canvas</button>
+    </nav>
+    <div id="canvasContainer"></div>
+    <footer class="page-footer">
+        <span>&copy; jsablaon</span>
+    </footer>
+</body>
+<style>
+    nav {
+        margin: 10px;
+    }
+
+    .pixel {
+        display: inline-block;
+        background-color: whitesmoke;
+        width: 10px;
+        height: 10px;
+        margin: 0px 1px;
+    }
+
+    .row {
+        margin: -12px;
+    }
+</style>
+<script>
+    // waits for the DOM to load(html)
+    document.addEventListener("DOMContentLoaded", function (event) {
+        let colorPicker = document.getElementById("colorPicker");
+        let rowCount = document.getElementById("rowCount");
+        let columnCount = document.getElementById("columnCount");
+        let generateCanvasButton = document.getElementById("generateCanvasButton");
+        let generateNewCanvasButton = document.getElementById("generateNewCanvasButton");
+        let canvasContainer = document.getElementById("canvasContainer");
+        let paintbrushBoolean = false;
+        let canvasGenerated = false;
+
+        document.addEventListener("mousedown", function (e) {
+            paintbrushBoolean = true;
+            console.log("mouseDown");
+        })
+
+        document.addEventListener("mouseup", function (e) {
+            paintbrushBoolean = false;
+            console.log("mouseUp");
+        })
+
+        document.addEventListener("mouseover", function (e) {
+            // console.log(e.target.classList[0]);
+            if (paintbrushBoolean && e.target.classList[0] === "pixel") {
+                e.target.style.backgroundColor = colorPicker.value;
+            }
+        })
+
+        generateCanvasButton.addEventListener("click", generateCanvas); // button event listener
+        generateNewCanvasButton.addEventListener("click", generateNewCanvas)
+
+        function generateCanvas() {
+            if (!canvasGenerated) {
+                canvasGenerated = true;
+                canvasContainer.innerHTML = "";
+                console.log("generated");
+                for (let i = 0; i < rowCount.value; i++) {
+                    let row = document.createElement("div");
+                    row.classList = "row" // creates a div wiht a class name row
+
+                    for (let j = 0; j < columnCount.value; j++) {
+                        let column = document.createElement("div");
+                        column.classList = "pixel";
+
+                        row.appendChild(column); // append the col div to row div. still need to append to canvasContainer div
+                    }
+
+                    canvasContainer.appendChild(row); // append each row div to canvasContainer div.
+                }
+                generateCanvasButton.hidden = "hidden";
+                generateNewCanvasButton.style.visibility = "visible";
+            }
+        }
+
+        function generateNewCanvas(){
+            if(canvasGenerated){
+                canvasGenerated = false;
+                generateCanvas();
+            }
+        }
+    })
+</script>
+
+</html>
