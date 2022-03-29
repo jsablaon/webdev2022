@@ -32,6 +32,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    let currentYear = new Date().getFullYear();
+    console.log(currentYear);
+
+    let footer = document.getElementsByClassName('page-footer');
+    // console.log(footer, "footer");
+
+    let newSpan = document.createElement("span");
+    newSpan.setAttribute("id", "span-footer");
+    newSpan.innerHTML = `&copy; jsablaon ${currentYear}`;
+    // since footer is a collection of DOM nodes, need to specify which node to append the span to.
+    footer[0].appendChild(newSpan);
+
     // listen for events in current open window
     window.addEventListener("load", markElements);
     window.addEventListener("resize", markElements);
