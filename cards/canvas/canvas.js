@@ -39,7 +39,8 @@ var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
-document.body.appendChild(canvas);
+// document.body.appendChild(canvas);
+document.getElementById('div-container').appendChild(canvas);
 
 // Background image
 var bgReady1 = false;
@@ -105,17 +106,17 @@ var mask = {
 };
 
 
- let virusObject = function (pX, pY) {
-   this.x=pX;
-   this.y=pY;
+let virusObject = function (pX, pY) {
+    this.x = pX;
+    this.y = pY;
 }
-let virusArray=[];
-   
+let virusArray = [];
+
 var immunityLevel = 0;
 
 // Handle keyboard controls
 var keysDown = {}; //object were we properties when keys go down
-                // and then delete them when the key goes up
+// and then delete them when the key goes up
 // so the object tells us if any key is down when that keycode
 // is down.  In our game loop, we will move the hero image if when
 // we go thru render, a key is down
@@ -130,14 +131,13 @@ addEventListener("keyup", function (e) {
     delete keysDown[e.keyCode];
 }, false);
 
-function touchingVirus(who){
+function touchingVirus(who) {
     //let gg = false;
-    for(i=0;i<virusArray.length;i++){
-        if( who.x<=(virusArray[i].x+40)&&
-            virusArray[i].x<=(who.x+35)&&
-            who.y<=(virusArray[i].y+45)&&
-            virusArray[i].y<=(who.y+50)) 
-        {
+    for (i = 0; i < virusArray.length; i++) {
+        if (who.x <= (virusArray[i].x + 40) &&
+            virusArray[i].x <= (who.x + 35) &&
+            who.y <= (virusArray[i].y + 45) &&
+            virusArray[i].y <= (who.y + 50)) {
             console.log("touched virus");
             return true;
         }
@@ -149,14 +149,14 @@ function touchingVirus(who){
 var update = function (modifier) {
 
     console.log("in the update() start...");
-    console.log("hero.x = " + hero.x );
-    console.log("hero.y = " + hero.y );
+    console.log("hero.x = " + hero.x);
+    console.log("hero.y = " + hero.y);
     // clear the last image position and assume the character is not moving left or right
     ctx.clearRect(hero.x, hero.y, width, height);
 
     console.log("in the update() after clearRect...");
-    console.log("hero.x = " + hero.x );
-    console.log("hero.y = " + hero.y );
+    console.log("hero.x = " + hero.x);
+    console.log("hero.y = " + hero.y);
 
     left = false;
     right = false;
@@ -191,10 +191,10 @@ var update = function (modifier) {
 
     // do the frame logic here for directional movement
     // slow down animation
-    if(counter == 6){ // adjust this to change "walking speed" of animation
+    if (counter == 6) { // adjust this to change "walking speed" of animation
         curXFrame = ++curXFrame % frameCount; // updating the sprite frame index
-                                                // it will count 0,1,2,3... using %
-                                                // increment frame rate every 6th time to slow down animation
+        // it will count 0,1,2,3... using %
+        // increment frame rate every 6th time to slow down animation
         counter = 0;
     } else {
         counter++;
@@ -202,56 +202,56 @@ var update = function (modifier) {
 
     srcX = curXFrame * width; // calc the X coordinate for the spritesheet
     // pick Y dimension of the correct row for the spritesheet
-    if(left) {
+    if (left) {
         scrY = trackLeft * height;
     }
 
-    if(right){
+    if (right) {
         scrY = trackRight * height;
     }
 
-    if(up){
+    if (up) {
         scrY = trackUp * height;
     }
 
-    if(down){
+    if (down) {
         scrY = trackDown * height;
     }
 
     // this will pick the most neutral image when not moving
-    if(left == false && right == false && up == false && down == false){
+    if (left == false && right == false && up == false && down == false) {
         srcX = 0 * width;
         scrY = 0 * height;
     }
 
     console.log("in the update() end...");
-    console.log("hero.x = " + hero.x );
-    console.log("hero.y = " + hero.y );
-    
+    console.log("hero.x = " + hero.x);
+    console.log("hero.y = " + hero.y);
+
     // check time 30 seconds
-    if (sw.elapsedTime() < 31){
+    if (sw.elapsedTime() < 31) {
         // Are they touching?
         if (
             (hero.x <= (vaccine.x + 45)
-            && vaccine.x <= (hero.x + 45)
-            && hero.y <= (vaccine.y + 45)
-            && vaccine.y <= (hero.y + 45)) ||
+                && vaccine.x <= (hero.x + 45)
+                && hero.y <= (vaccine.y + 45)
+                && vaccine.y <= (hero.y + 45)) ||
             (hero.x <= (mask.x + 50)
-            && mask.x <= (hero.x + 50)
-            && hero.y <= (mask.y + 50)
-            && mask.y <= (hero.y + 50)) 
+                && mask.x <= (hero.x + 50)
+                && hero.y <= (mask.y + 50)
+                && mask.y <= (hero.y + 50))
         ) {
             ++immunityLevel;       // keep track of our “score”
-    
-            if(immunityLevel>9){
-                gameOver=true;
+
+            if (immunityLevel > 9) {
+                gameOver = true;
                 endGame();
                 //alert("You won!");
 
                 //clearInterval(gametimer);
                 //endGame();
             }
-            else{
+            else {
                 console.log("in the update() for reset()");
                 reset();       // start a new cycle
             }
@@ -264,11 +264,11 @@ var update = function (modifier) {
     }
 
 
-    let count=0;
-    if(touchingVirus(hero)){
-        count++;      
+    let count = 0;
+    if (touchingVirus(hero)) {
+        count++;
         alert("You have caught Virus! Game Over!")
-        gameOver=true;  
+        gameOver = true;
         endGame();
     }
 };
@@ -281,14 +281,14 @@ var update = function (modifier) {
 
 var main = function () {
     var now = Date.now();
-    var delta = now - then;   
-        update(delta / 1000);
-        render();
-        then = now;
-        //  Request to do this again ASAP
-        if(!gameOver){
-            requestAnimationFrame(main);  
-        }
+    var delta = now - then;
+    update(delta / 1000);
+    render();
+    then = now;
+    //  Request to do this again ASAP
+    if (!gameOver) {
+        requestAnimationFrame(main);
+    }
 };
 //moving virus on screen every second
 setInterval(displayVirus, 1000);
@@ -306,7 +306,7 @@ var render = function () {
         ctx.drawImage(bgImage2, 32, 32);
     }
 
-    if(heroReady){
+    if (heroReady) {
         ctx.drawImage(heroImage, srcX, scrY, width, height, hero.x, hero.y, width, height);
     }
 
@@ -317,36 +317,36 @@ var render = function () {
         ctx.drawImage(maskImage, mask.x, mask.y);
     }
 
-    if(virusReady){ 
-        for( i=0;i<virusArray.length;i++){
-            ctx.drawImage(virusImage,virusArray[i].x,virusArray[i].y);
+    if (virusReady) {
+        for (i = 0; i < virusArray.length; i++) {
+            ctx.drawImage(virusImage, virusArray[i].x, virusArray[i].y);
             // console.log("virus" +i+virusArray[i].x)
         }
         // }
-         
+
     }
-        // Score
-        ctx.fillStyle = "rgb(250, 250, 250)";
-        ctx.font = "24px Helvetica";
-        ctx.textAlign = "left";
-        ctx.textBaseline = "top";
-        ctx.fillText("Your Immunity Level: " + immunityLevel + " | " + "Time: " + sw.elapsedTime(), 0, 0);
-        //ctx.fillText("Your Immunity Level: " + immunityLevel, 0, 0);
-        //ctx.fillText("Time:"+Date.now(),700,0);
-    
+    // Score
+    ctx.fillStyle = "rgb(250, 250, 250)";
+    ctx.font = "24px Helvetica";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    ctx.fillText("Your Immunity Level: " + immunityLevel + " | " + "Time: " + sw.elapsedTime(), 0, 0);
+    //ctx.fillText("Your Immunity Level: " + immunityLevel, 0, 0);
+    //ctx.fillText("Time:"+Date.now(),700,0);
+
 }
 
-function endGame(){
-    if(immunityLevel > 9 && sw.elapsedTime() < 31){
+function endGame() {
+    if (immunityLevel > 9 && sw.elapsedTime() < 31) {
         alert("You won!");
     }
 
-    if(sw.elapsedTime() > 30){
+    if (sw.elapsedTime() > 30) {
         alert("Time Up! You lost!");
     }
 
-    let again=prompt("Do you  want to play again? Type 'Y' or 'N'");
-    if(again=="Y"||again=='y'){
+    let again = prompt("Do you  want to play again? Type 'Y' or 'N'");
+    if (again == "Y" || again == 'y') {
         sw.stop();
         sw.reset();
         gameOver = false;
@@ -354,7 +354,7 @@ function endGame(){
         reset();
         console.log("hero.x = " + hero.x);
         console.log("hero.y = " + hero.y);
-        start();  
+        start();
     }
     else {
         gameOver = true;
@@ -363,66 +363,65 @@ function endGame(){
 }
 
 var reset = function () {
-    hero.x = (canvas.width / 2)-32;
-    hero.y = (canvas.height / 2)-32;
+    hero.x = (canvas.width / 2) - 32;
+    hero.y = (canvas.height / 2) - 32;
 
-//Place the monster somewhere on the screen randomly
-// but not in the hedges, Article in wrong, the 64 needs to be 
-// hedge 32 + hedge 32 + char 32 = 96
+    //Place the monster somewhere on the screen randomly
+    // but not in the hedges, Article in wrong, the 64 needs to be 
+    // hedge 32 + hedge 32 + char 32 = 96
     // monster.x = 32 + (Math.random() * (canvas.width - 96));
     // monster.y = 32 + (Math.random() * (canvas.height - 96));
 
-    let notGood=true;
-    while(notGood){
-    vaccine.x = 32+ (Math.random() * (canvas.width - 128));
-    vaccine.y =32 + (Math.random() * (canvas.height - 128));
-    if(!touchingVirus(vaccine)){
-        notGood=false;
-    }
-    }
- notGood=true;
-    while(notGood){
-        mask.x = 32+ (Math.random() * (canvas.width - 128));
-        mask.y =32 + (Math.random() * (canvas.height - 128));
-        if(!touchingVirus(mask)&&!touchingOther(mask,vaccine)){
-            notGood=false;
+    let notGood = true;
+    while (notGood) {
+        vaccine.x = 32 + (Math.random() * (canvas.width - 128));
+        vaccine.y = 32 + (Math.random() * (canvas.height - 128));
+        if (!touchingVirus(vaccine)) {
+            notGood = false;
         }
+    }
+    notGood = true;
+    while (notGood) {
+        mask.x = 32 + (Math.random() * (canvas.width - 128));
+        mask.y = 32 + (Math.random() * (canvas.height - 128));
+        if (!touchingVirus(mask) && !touchingOther(mask, vaccine)) {
+            notGood = false;
         }
+    }
 
-        displayVirus();
-    
+    displayVirus();
+
 };
 
-function displayVirus(){
-    let x=0;
-    let y=0;
-    let virus={
-        x:0,
-        y:0
+function displayVirus() {
+    let x = 0;
+    let y = 0;
+    let virus = {
+        x: 0,
+        y: 0
     }
-    virusArray=[];
-        do
-        {
-            virus.x=32+ (Math.random() * (canvas.width - 128));
-            virus.y=32+ (Math.random() * (canvas.width - 128));
-            if(!touchingOther(hero,virus)&&!touchingOther(mask,virus)&&!touchingOther(vaccine,virus)){
-                virusArray.push(new virusObject(virus.x,virus.y));
-            }
-            
-        }while(virusArray.length<5);
+    virusArray = [];
+    do {
+        virus.x = 32 + (Math.random() * (canvas.width - 128));
+        virus.y = 32 + (Math.random() * (canvas.width - 128));
+        if (!touchingOther(hero, virus) && !touchingOther(mask, virus) && !touchingOther(vaccine, virus)) {
+            virusArray.push(new virusObject(virus.x, virus.y));
+        }
 
-    }
+    } while (virusArray.length < 5);
 
-function touchingOther(who,whom){
-    if(
-    who.x <= (whom.x + 64)
-    && whom.x <= (who.x + 64)
-    && who.y <= (whom.y + 64)
-    && whom.y <= (who.y + 64)
-    ){
+}
+
+function touchingOther(who, whom) {
+    if (
+        who.x <= (whom.x + 64)
+        && whom.x <= (who.x + 64)
+        && who.y <= (whom.y + 64)
+        && whom.y <= (who.y + 64)
+    ) {
         return true;
     }
-    else{
+    else {
         return false;
     }
 }
@@ -434,7 +433,7 @@ function StopWatch() {
         isRunning = false,
         time,
         duration = 0;
-    
+
     this.start = function () {
         if (isRunning) throw new Error("StopWatch has already been started.");
 
@@ -442,18 +441,18 @@ function StopWatch() {
 
         startTime = new Date();
     };
-    
+
     this.stop = function () {
         if (!isRunning) throw new Error("StopWatch has already been stop.");
-    
+
         isRunning = false;
-    
+
         endTime = new Date();
-    
+
         const seconds = (endTime.getTime() - startTime.getTime()) / 1000;
         duration += seconds;
     };
-    
+
     this.reset = function () {
         duration = 0;
         startTime = null;
@@ -461,29 +460,29 @@ function StopWatch() {
         isRunning = false;
     };
 
-    this.elapsedTime = function(){
+    this.elapsedTime = function () {
         time = new Date();
         // use getTime() instead of getSeconds because it will produce a negative value
         return (time.getTime() - startTime.getTime()) / 1000;
     }
 
-    this.restart = function(){
+    this.restart = function () {
         this.stop();
         this.reset();
         this.start();
     }
-    
+
     Object.defineProperty(this, "duration", {
         get: function () {
             return duration;
         },
     });
 }
-    
+
 const sw = new StopWatch();
 
 let then;
-function start(){
+function start() {
 
     sw.start();
     console.log("isRunning : " + sw.isRunning);
@@ -494,12 +493,12 @@ function start(){
     //     sw.restart();
     // }
     // console.log("duration : " + sw.duration);
-    
+
 
 
     then = Date.now();
     alert("You have 30 seconds to gain improve your immunity to 10 without contracting Virus!")
-    immunityLevel=0;
+    immunityLevel = 0;
     //var start=Date.now();
     reset();
     console.log("in the start()...");
@@ -508,7 +507,7 @@ function start(){
     main();  // call the main game loop.
     //setTimeout(endGame,30000); // 30 seconds
 }
- start();
+start();
 // var then=Date.now();
 // reset();
 //  main();  // call the main game loop.
