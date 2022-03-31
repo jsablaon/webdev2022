@@ -38,21 +38,21 @@
     </nav>
 
     <div>
-        <nav>
+        <nav class="navbar container-fluid justify-content-center">
             <label for="">Pick a Color: </label>
-            <input type="color" name="" id="colorPicker">
+            <input class="form-control me-2" type="color" name="" id="colorPicker" style="width: 10%; height: 15px">
 
             <label for="">Rows: </label>
-            <input type="number" name="" id="rowCount">
+            <input class="form-control me-2" type="number" name="" id="rowCount" min="65" max="100" value="100" style="width: 10%; height: 15px">
 
             <label for="">Columns: </label>
-            <input type="number" name="" id="columnCount">
+            <input class="form-control me-2" type="number" name="" id="columnCount" min="65" max="100" value="100" style="width: 10%; height: 15px">
 
-            <button id="generateCanvasButton">Generate the canvas!</button>
-            <button id="generateNewCanvasButton" style="visibility: hidden">Generate NEW canvas</button>
+            <button id="generateCanvasButton" class="btn btn-sm btn-outline-secondary">Generate the canvas!</button>
+            <button id="generateNewCanvasButton" class="btn btn-sm btn-outline-secondary" style="visibility: hidden">Generate NEW canvas</button>
         </nav>
 
-        <div id="canvasContainer"></div>
+        <div id="canvasContainer" style="border: solid 10px #F7C331; margin: 5rem;"></div>
     </div>
 
 
@@ -61,6 +61,10 @@
     </footer>
 </body>
 <style>
+    label{
+        color: #F7C331;
+    }
+    
     nav {
         margin: 10px;
     }
@@ -76,6 +80,7 @@
     .row {
         margin: -12px;
     }
+
 </style>
 <script>
     // waits for the DOM to load(html)
