@@ -46,6 +46,13 @@ document.addEventListener("DOMContentLoaded", function () {
         footer[0].appendChild(newSpan);
     }
 
+    // underscore blink
+    let blink = document.getElementById('blink');
+    let blink2 = document.getElementById('blink2');
+    setInterval(() => {
+            blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
+            blink2.style.opacity = (blink2.style.opacity == 0 ? 1 : 0);
+    }, 500);
 
     // listen for events in current open window
     window.addEventListener("load", markElements);
