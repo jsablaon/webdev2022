@@ -46,17 +46,35 @@ document.addEventListener("DOMContentLoaded", function () {
         footer[0].appendChild(newSpan);
     }
 
-    // underscore blink
-    let blink = document.getElementById('blink');
-    let blink2 = document.getElementById('blink2');
-    setInterval(() => {
-            blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
-            blink2.style.opacity = (blink2.style.opacity == 0 ? 1 : 0);
-    }, 500);
+    let messageArray = [`c:\\>softwareEngineer -city Seattle -state WA `, 
+                        `c:\\>Hello -and Welcome! `, 
+                        `//note: this is a work in progress. `, 
+                        `//todo: develop apps like a boss! `];
+    let elArray = [ "#message", 
+                    "#message2", 
+                    "#message3", 
+                    "#message4"];
+    let textPosition = 0;
+    let speed = 100;
+    let elCounter = 0
+
+    function typeWriter(){
+        document.querySelector(elArray[elCounter]).innerHTML = messageArray[elCounter].substring(0,textPosition) + "<span id='b'>&#95;</span>";
+
+        if(textPosition++ != messageArray[elCounter].length){
+            setTimeout(typeWriter, speed);
+        }
+
+        if(textPosition == messageArray[elCounter].length){
+            elCounter++;
+            textPosition = 0;
+        }
+    }
 
     // listen for events in current open window
     window.addEventListener("load", markElements);
     window.addEventListener("resize", markElements);
     window.addEventListener("scroll", markElements);
     window.addEventListener("load", updateFooter);
+    window.addEventListener("load", typeWriter);
 })
