@@ -95,6 +95,7 @@ h1 {
   padding: 15px;
   /* background: #f45b69; */
   background: grey;
+  border-radius: .70rem;
 }
 
 .verticalLine ul li div::before {

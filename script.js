@@ -46,8 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
         footer[0].appendChild(newSpan);
     }
 
-    let messageArray = [`c:\\>softwareEngineer -city Seattle -state WA `, 
-                        `c:\\>Hello -and Welcome! `, 
+    let messageArray = [`c:\\>softwareEngineer -city seattle -state wa `, 
+                        `c:\\>hello -and welcome! `, 
                         `//note: this is a work in progress. `, 
                         `//todo: develop apps like a boss! `];
     let elArray = [ "#message", 

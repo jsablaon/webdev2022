@@ -39,20 +39,24 @@
 
     <div>
         <nav class="navbar container-fluid justify-content-center">
-            <label for="">Pick a Color: </label>
+            <label for="">pick a color: </label>
             <input class="form-control me-2" type="color" name="" id="colorPicker" style="width: 10%; height: 15px">
 
-            <label for="">Rows: </label>
-            <input class="form-control me-2" type="number" name="" id="rowCount" min="65" max="100" value="100" style="width: 10%; height: 15px">
+            <label for="">rows: </label>
+            <input class="form-control me-2" type="number" name="" id="rowCount" min="1" max="100" value="60" style="width: 10%; height: 15px">
 
-            <label for="">Columns: </label>
-            <input class="form-control me-2" type="number" name="" id="columnCount" min="65" max="100" value="100" style="width: 10%; height: 15px">
+            <label for="">columns: </label>
+            <input class="form-control me-2" type="number" name="" id="columnCount" min="135" max="300" value="268" style="width: 10%; height: 15px">
 
-            <button id="generateCanvasButton" class="btn btn-sm btn-outline-secondary">Generate the canvas!</button>
-            <button id="generateNewCanvasButton" class="btn btn-sm btn-outline-secondary" style="visibility: hidden">Generate NEW canvas</button>
+            <button id="generateCanvasButton" class="btn btn-sm btn-outline-secondary">generate canvas!</button>
+            <button id="generateNewCanvasButton" class="btn btn-sm btn-outline-secondary" style="visibility: hidden">generate NEW canvas</button>
         </nav>
+        <div class="container">
+            <h1>pixel art 🎨</h1>
+        </div>
+        
 
-        <div id="canvasContainer" style="border: solid 10px #F7C331; margin: 5rem;"></div>
+        <div id="canvasContainer" style="border: solid 10px #F7C331; border-radius: 2rem; margin: 5rem; margin-top: 2rem; padding: 2rem;"></div>
     </div>
 
 
@@ -74,11 +78,19 @@
         background-color: whitesmoke;
         width: 10px;
         height: 10px;
-        margin: 0px 1px;
+        margin: 1px 1px;
     }
 
     .row {
         margin: -12px;
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+       
+    }
+
+    .row > *{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
     }
 
 </style>
